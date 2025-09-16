@@ -1,176 +1,230 @@
-/* 🌐 Base styles */
+:root {
+  --bg: #0f172a;
+  --card: rgba(255, 255, 255, 0.08);
+  --accent: #06b6d4;
+  --muted: #94a3b8;
+  --blur: 14px;
+}
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  font-family: "Inter", system-ui, sans-serif;
+  margin: 0;
   min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b, #0f172a);
+  background-size: 300% 300%;
+  animation: gradientFlow 12s ease infinite;
+  color: #e2e8f0;
+  padding: 28px;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+header {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 22px;
+  background: linear-gradient(90deg, #06b6d4, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.task-form {
+  display: flex;
+  gap: 8px;
   align-items: flex-start;
-  padding: 40px;
-  color: #fff;
+  margin-bottom: 20px;
 }
 
-/* 📌 Kanban board container */
-.board {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  max-width: 1200px;
+.task-form input,
+.task-form textarea {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(var(--blur));
+  padding: 10px;
+  border-radius: 10px;
+  color: inherit;
+  transition: all 0.3s ease;
 }
 
-/* 🗂️ Column design */
-.column {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
+.task-form input:focus,
+.task-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+  outline: none;
 }
 
-.column h2 {
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 20px;
+.task-form input {
+  width: 260px;
+}
+
+.task-form textarea {
+  width: 420px;
+  min-height: 48px;
+  resize: vertical;
+}
+
+.task-form button {
+  background: var(--accent);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #052027;
   font-weight: 600;
-  color: #f5f5f5;
-  letter-spacing: 0.5px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-/* 📝 Task list area */
+.task-form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+}
+
+/* Board Styling */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.column {
+  background: var(--card);
+  backdrop-filter: blur(var(--blur));
+  padding: 14px;
+  border-radius: 14px;
+  min-height: 380px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.column:hover {
+  transform: translateY(-4px);
+}
+
+.column h3 {
+  margin: 4px 0 12px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.column .count {
+  float: right;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* Task Cards */
 .task-list {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
+  min-height: 220px;
 }
 
-/* 🎴 Task card */
 .card {
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(12px);
-  border-radius: 14px;
-  padding: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(var(--blur));
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: grab;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-.card:active {
-  cursor: grabbing;
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.3);
 }
 
 .card.dragging {
-  opacity: 0.7;
-  transform: rotate(3deg) scale(1.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  opacity: 0.6;
+  transform: scale(0.98);
 }
 
-/* 🏷️ Card content */
 .card h4 {
-  margin-bottom: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
+  margin: 0 0 6px;
+  font-size: 15px;
 }
 
 .card p {
-  font-size: 14px;
-  color: #e0e0e0;
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
 }
 
 .card .meta {
-  margin-top: 10px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--muted);
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  color: #ccc;
 }
 
-.card .btn-ghost {
+.empty {
+  opacity: 0.4;
+  font-size: 13px;
+  padding: 10px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Buttons */
+.controls {
+  margin-left: auto;
+}
+
+.btn-ghost {
   background: transparent;
-  border: none;
-  color: #ff6b6b;
-  cursor: pointer;
-  font-size: 12px;
-  transition: color 0.2s ease;
-}
-
-.card .btn-ghost:hover {
-  color: #ff2e2e;
-}
-
-/* ➕ Task form */
-#taskForm {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-
-#taskForm input,
-#taskForm textarea {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  outline: none;
-  resize: none;
-}
-
-#taskForm input::placeholder,
-#taskForm textarea::placeholder {
-  color: #ddd;
-}
-
-#taskForm button {
-  padding: 12px 18px;
-  background: linear-gradient(135deg, #6dd5ed, #2193b0);
-  border: none;
-  border-radius: 12px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s ease;
-}
-
-#taskForm button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #56ccf2, #2f80ed);
-}
-
-/* 🧹 Clear All Button */
-#clearAll {
-  margin-top: 20px;
-  padding: 12px 18px;
-  border: none;
-  border-radius: 12px;
-  background: rgba(255, 75, 75, 0.2);
-  backdrop-filter: blur(10px);
-  color: #ff6b6b;
-  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--muted);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-#clearAll:hover {
-  background: rgba(255, 75, 75, 0.4);
-  color: #fff;
+.btn-ghost:hover {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: var(--accent);
+  color: #e2e8f0;
 }
 
-/* 📱 Responsive */
-@media (max-width: 900px) {
+footer {
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 880px) {
   .board {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 }
