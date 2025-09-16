@@ -1,0 +1,177 @@
+:root {
+  --bg: #0f1724;
+  --card: #0b1220;
+  --accent: #06b6d4;
+  --muted: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, Ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #071021 0%, #071827 100%);
+  color: #e6eef6;
+  padding: 28px;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Task Form */
+.task-form {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.task-form input,
+.task-form textarea {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 10px;
+  border-radius: 8px;
+  color: inherit;
+}
+
+.task-form input {
+  width: 260px;
+}
+
+.task-form textarea {
+  width: 420px;
+  min-height: 48px;
+  resize: vertical;
+}
+
+.task-form button {
+  background: var(--accent);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #052027;
+}
+
+/* Board Layout */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.column {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 12px;
+  border-radius: 12px;
+  min-height: 360px;
+}
+
+.column h3 {
+  margin: 4px 0 10px 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.column .count {
+  float: right;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* Task cards list */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 220px;
+}
+
+/* Single task card */
+.card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  cursor: grab;
+}
+
+.card.dragging {
+  opacity: 0.6;
+  transform: scale(0.995);
+}
+
+.card h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+}
+
+.card p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Task metadata inside card */
+.card .meta {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Empty state inside column */
+.empty {
+  opacity: 0.35;
+  font-size: 13px;
+  padding: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+/* Controls */
+.controls {
+  margin-left: auto;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 880px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}

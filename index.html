@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Kanban Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    
+    <!-- Header with title and clear all button -->
+    <header>
+      <h1>Dynamic Kanban Board</h1>
+      <div class="controls">
+        <button id="clearAll" class="btn-ghost" title="Clear all tasks">Clear All</button>
+      </div>
+    </header>
+
+    <!-- Task input form -->
+    <form id="taskForm" class="task-form" autocomplete="off">
+      <input id="taskTitle" placeholder="Task title" required>
+      <textarea id="taskDesc" placeholder="Short description (optional)"></textarea>
+      <button type="submit">Add</button>
+    </form>
+
+    <!-- Kanban board with 3 columns -->
+    <section class="board" id="board">
+      <!-- To Do Column -->
+      <div class="column" data-column="todo">
+        <h3>
+          To Do 
+          <span class="count" data-count-for="todo">0</span>
+        </h3>
+        <div class="task-list" id="todoList" data-list-for="todo"></div>
+      </div>
+
+      <!-- In Progress Column -->
+      <div class="column" data-column="inprogress">
+        <h3>
+          In Progress 
+          <span class="count" data-count-for="inprogress">0</span>
+        </h3>
+        <div class="task-list" id="inprogressList" data-list-for="inprogress"></div>
+      </div>
+
+      <!-- Done Column -->
+      <div class="column" data-column="done">
+        <h3>
+          Done 
+          <span class="count" data-count-for="done">0</span>
+        </h3>
+        <div class="task-list" id="doneList" data-list-for="done"></div>
+      </div>
+    </section>
+
+    <!-- Footer info -->
+    <footer>
+      Saved locally (localStorage) • Drag & drop cards between columns
+    </footer>
+  </div>
+
+  <!-- Linking main script -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
